@@ -9,7 +9,7 @@ sap.ui.define([
 
 		return Controller.extend("northwind.odata.demo.webapp.controller.Main", {
 			onInit: function () {
-                
+                this.getView().getModel(); // test git commit
             }
 		});
 	});

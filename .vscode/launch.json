@@ -1,94 +1,52 @@
 {
-    "inputs": [
-        {
-            "id": "UI5Version",
-            "type": "command",
-            "command": "sap.ux.appGenerator.ui5Version"
-        }
-    ],
-    "configurations": [
-        {
-            "name": "Run NorthwindOdataDemo-webapp",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceFolder}/NorthwindOdataDemo/northwindodatademo-approuter/node_modules/@sap/html5-repo-mock/index.js",
-            "args": [
-                "--standalone",
-                "/northwindodatademowebapp/index.html",
-                "--ui5",
-                "{\"version\":\".\"}"
-            ],
-            "cwd": "${workspaceFolder}/NorthwindOdataDemo/webapp",
-            "env": {
-                "PORT": "6004",
-                "MOCK_LOOKUP_DIRS": "[\"dist\"]",
-                "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/NorthwindOdataDemo/webapp\"}"
-            },
-            "envFile": "${workspaceFolder}/NorthwindOdataDemo/webapp/.env4",
-            "preLaunchTask": "Build NorthwindOdataDemo"
-        },
-        {
-            "name": "Start salesorders",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "cwd": "${workspaceFolder}/salesorders",
-            "windows": {
-                "runtimeExecutable": "npm.cmd"
-            },
-            "runtimeArgs": [
-                "run-script",
-                "start"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "port": 9229,
-            "env": {
-                "DEBUG": "--inspect",
-                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/salesorders\"}"
-            }
-        },
-        {
-            "name": "Start salesorders Mock",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/salesorders",
-            "runtimeExecutable": "npm",
-            "windows": {
-                "runtimeExecutable": "npm.cmd"
-            },
-            "runtimeArgs": [
-                "run-script",
-                "start-mock"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "port": 9229,
-            "env": {
-                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/salesorders\"}"
-            }
-        },
-        {
-            "name": "Start salesorders Local",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/salesorders",
-            "runtimeExecutable": "npm",
-            "windows": {
-                "runtimeExecutable": "npm.cmd"
-            },
-            "runtimeArgs": [
-                "run-script",
-                "start-local"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "port": 9229,
-            "env": {
-                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/salesorders\"}"
-            }
-        }
-    ],
-    "compounds": [],
-    "version": "0.2.0"
+  "configurations": [
+    {
+      "name": "Run NorthwindOdataDemo-webapp",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/NorthwindOdataDemo/northwindodatademo-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/northwindodatademowebapp/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/NorthwindOdataDemo/webapp",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"dist\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/NorthwindOdataDemo/webapp\"}"
+      },
+      "envFile": "${workspaceFolder}/NorthwindOdataDemo/webapp/.env4",
+      "preLaunchTask": "Build NorthwindOdataDemo"
+    },
+    {
+      "name": "mainmodule",
+      "cwd": "${workspaceFolder}/mainmodule",
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/mainmodule\"}"
+      }
+    }
+  ],
+  "compounds": [],
+  "inputs": [
+    {
+      "id": "UI5Version",
+      "type": "command",
+      "command": "sap.ux.appGenerator.ui5Version"
+    }
+  ],
+  "version": "0.2.0"
 }

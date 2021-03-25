@@ -1,0 +1,94 @@
+_schema-version: "3.2"
+ID: cds-test-assoc-cdstestwithassoc
+description: Cds view with assoc and navigation
+version: 0.0.1
+modules:
+- name: cds-test-assoc-cdstestwithassoc-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: cds-test-assoc-cdstestwithassoc-destination-service
+    parameters:
+      content-target: true
+  - name: cds-test-assoc-cdstestwithassoc-html5-repo-host
+    parameters:
+      service-key:
+        name: cds-test-assoc-cdstestwithassoc-html5-repo-host-key
+  - name: uaa_cds-test-assoc-cdstestwithassoc
+    parameters:
+      service-key:
+        name: uaa_cds-test-assoc-cdstestwithassoc-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: cds-test-assoc-cdstestwithassoc_html_repo_host
+          ServiceInstanceName: cds-test-assoc-cdstestwithassoc-html5-app-host-service
+          ServiceKeyName: cds-test-assoc-cdstestwithassoc-html5-repo-host-key
+          sap.cloud.service: cds-test-assoc-cdstestwithassoc
+        - Authentication: OAuth2UserTokenExchange
+          Name: cds-test-assoc-cdstestwithassoc_uaa
+          ServiceInstanceName: cds-test-assoc-cdstestwithassoc-xsuaa-service
+          ServiceKeyName: uaa_cds-test-assoc-cdstestwithassoc-key
+          sap.cloud.service: cds-test-assoc-cdstestwithassoc
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: cds-test-assoc-cdstestwithassoc-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: cds-test-assoc-cdstestwithassoc-html5-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - cdstestassoccdstestwithassoc.zip
+      name: cdstestassoccdstestwithassoc
+      target-path: resources/
+- name: cdstestassoccdstestwithassoc
+  type: html5
+  path: .
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: cds-test-assoc-cdstestwithassoc-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: cds-test-assoc-cdstestwithassoc-destination-service
+    service-plan: lite
+- name: uaa_cds-test-assoc-cdstestwithassoc
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: cds-test-assoc-cdstestwithassoc-xsuaa-service
+    service-plan: application
+- name: cds-test-assoc-cdstestwithassoc-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: cds-test-assoc-cdstestwithassoc-html5-app-host-service
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true

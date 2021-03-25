@@ -17,6 +17,7 @@
                                 <StandardListItem 
                                     type="Navigation"
                                     title="{carrid}"
+                                    tooltip="{carrid} - {connid}"
                                     description="{connid}"
                                     />
                             </items>

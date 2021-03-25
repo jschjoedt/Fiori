@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://virtvhcalnplci:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZDEMO_CDS_ASSOC_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SFLIGHTType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CARRID"/>
+                    <PropertyRef Name="CONNID"/>
+                    <PropertyRef Name="FLDATE"/>
+                </Key>
+                <Property Name="CARRID" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline"/>
+                <Property Name="CONNID" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Connection Number"/>
+                <Property Name="FLDATE" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Flight Date"/>
+                <Property Name="PRICE" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CURRENCY" sap:label="Airfare"/>
+                <Property Name="CURRENCY" Type="Edm.String" MaxLength="5" sap:label="Airline Currency" sap:semantics="currency-code"/>
+                <Property Name="PLANETYPE" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Plane Type"/>
+                <Property Name="SEATSMAX" Type="Edm.Int32" sap:label="Max. capacity econ."/>
+                <Property Name="SEATSOCC" Type="Edm.Int32" sap:label="Occupied econ."/>
+                <Property Name="PAYMENTSUM" Type="Edm.Decimal" Precision="18" Scale="3" sap:unit="CURRENCY" sap:label="Booking total"/>
+                <Property Name="SEATSMAX_B" Type="Edm.Int32" sap:label="Max. capacity bus."/>
+                <Property Name="SEATSOCC_B" Type="Edm.Int32" sap:label="Occupied bus."/>
+                <Property Name="SEATSMAX_F" Type="Edm.Int32" sap:label="Max. capacity 1st"/>
+                <Property Name="SEATSOCC_F" Type="Edm.Int32" sap:label="Occupied 1st"/>
+            </EntityType>
+            <EntityType Name="zdemo_cds_assocType" sap:label="cds demo with associations" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="carrid"/>
+                    <PropertyRef Name="connid"/>
+                </Key>
+                <Property Name="carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline" sap:quickinfo="Airline Code"/>
+                <Property Name="connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Connection Number" sap:quickinfo="Flight Connection Number"/>
+                <NavigationProperty Name="to_sflight" Relationship="ZDEMO_CDS_ASSOC_CDS.assoc_1EF78858C80F25565BEF11B19D7F255E" FromRole="FromRole_assoc_1EF78858C80F25565BEF11B19D7F255E" ToRole="ToRole_assoc_1EF78858C80F25565BEF11B19D7F255E"/>
+            </EntityType>
+            <Association Name="assoc_1EF78858C80F25565BEF11B19D7F255E" sap:content-version="1">
+                <End Type="ZDEMO_CDS_ASSOC_CDS.zdemo_cds_assocType" Multiplicity="1" Role="FromRole_assoc_1EF78858C80F25565BEF11B19D7F255E"/>
+                <End Type="ZDEMO_CDS_ASSOC_CDS.SFLIGHTType" Multiplicity="*" Role="ToRole_assoc_1EF78858C80F25565BEF11B19D7F255E"/>
+            </Association>
+            <EntityContainer Name="ZDEMO_CDS_ASSOC_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SFLIGHT" EntityType="ZDEMO_CDS_ASSOC_CDS.SFLIGHTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zdemo_cds_assoc" EntityType="ZDEMO_CDS_ASSOC_CDS.zdemo_cds_assocType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_1EF78858C80F25565BEF11B19D7F255E" Association="ZDEMO_CDS_ASSOC_CDS.assoc_1EF78858C80F25565BEF11B19D7F255E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zdemo_cds_assoc" Role="FromRole_assoc_1EF78858C80F25565BEF11B19D7F255E"/>
+                    <End EntitySet="SFLIGHT" Role="ToRole_assoc_1EF78858C80F25565BEF11B19D7F255E"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://virtvhcalnplci:8000/sap/opu/odata/sap/ZDEMO_CDS_ASSOC_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://virtvhcalnplci:8000/sap/opu/odata/sap/ZDEMO_CDS_ASSOC_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -14,11 +14,28 @@
                             noDataText="{i18n>noData}"
                             items="{/zdemo_cds_assoc}">
                             <items>
+                                <!-- Good example of how to convert Edm.Time from backend in UI5 -->
                                 <StandardListItem 
                                     type="Navigation"
-                                    title="{carrid}"
-                                    tooltip="{carrid} - {connid}"
-                                    description="{connid}"
+                                    press="onItemPres"
+                                    title="{cityfrom}"
+                                    info="Departure: {
+                                                path: 'deptime',
+                                                type: 'sap.ui.model.odata.type.Time', 
+                                                formatOptions: {
+                                                                    style: 'full', 
+                                                                    pattern: 'HH:mm:ss'
+                                                                }
+                                            } - Arrival: {
+                                                path: 'arrtime',
+                                                type: 'sap.ui.model.odata.type.Time', 
+                                                formatOptions: {
+                                                                    style: 'full', 
+                                                                    pattern: 'HH:mm:ss'
+                                                                }
+                                            } (Mins: {fltime})"
+                                    tooltip="{connid} - {carrid}"
+                                    description="{cityto}"
                                     />
                             </items>
                         </List>

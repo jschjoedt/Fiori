@@ -12,13 +12,20 @@
                         <List 
                             id="dataList" 
                             noDataText="{i18n>noData}"
-                            items="{/zdemo_cds_assoc}">
+                            growing="true"
+		                    growingThreshold="10"
+                            growingScrollToLoad="false"
+                            items="{path: '/zdemo_cds_assoc', parameters: {expand: 'to_sflight'}}" >
                             <items>
                                 <!-- Good example of how to convert Edm.Time from backend in UI5 -->
+                                <!-- Example of how to count assosiated items using expand, this can be costly in terms of load time, somewhat mitigated by using growingthreshold -->
+                                <!-- https://stackoverflow.com/questions/23816274/how-to-bind-odata-count-from-expanded-collection-in-an-xml-view -->
                                 <StandardListItem 
                                     type="Navigation"
                                     press="onItemPres"
                                     title="{cityfrom}"
+                                    description="{cityto}"
+                                    counter="{= ${to_sflight}.length }"
                                     info="Departure: {
                                                 path: 'deptime',
                                                 type: 'sap.ui.model.odata.type.Time', 
@@ -35,7 +42,6 @@
                                                                 }
                                             } (Mins: {fltime})"
                                     tooltip="{connid} - {carrid}"
-                                    description="{cityto}"
                                     />
                             </items>
                         </List>

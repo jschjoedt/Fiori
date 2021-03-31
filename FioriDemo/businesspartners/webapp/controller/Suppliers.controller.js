@@ -9,11 +9,13 @@ sap.ui.define([
 
 		return Controller.extend("ns.businesspartners.controller.Suppliers", {
 			onInit: function () {
-
+                
             },
 
             onItemPres: function(oEvent) {
-                console.log(oEvent.getSource().getBindingContext());
+                let sBindingContext = oEvent.getSource().getBindingContext();
+
+                console.log(sBindingContext);                
             }
 		});
 	});
